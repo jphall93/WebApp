@@ -104,7 +104,7 @@ public class AddPassenger extends HttpServlet {
 		if ((Boolean) request.getAttribute("errors")) {
 
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passenger.jsp");
-			
+
 			view.forward(request, response);
 		}
 	}
