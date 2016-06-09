@@ -3,13 +3,13 @@ package com.airline.models;
 import java.util.Date;
 
 public class Passenger {
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private Date dob;
-	
+
 	private Gender gender;
 
 	public String getFirstName() {
@@ -49,6 +49,5 @@ public class Passenger {
 		return "Passenger [firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob + ", gender=" + gender
 				+ "]";
 	}
-	
-	
+
 }

@@ -2,6 +2,7 @@ package com.airline.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -13,6 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.airline.models.Gender;
+import com.airline.models.Passenger;
 
 /**
  * Servlet implementation class AddPassenger
@@ -47,6 +51,8 @@ public class AddPassenger extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		Passenger p = new Passenger();
+
 		request.setAttribute("errors", false);
 
 		String firstName = request.getParameter("first-name");
@@ -57,6 +63,8 @@ public class AddPassenger extends HttpServlet {
 			request.setAttribute("error", true);
 			request.setAttribute("firstName_error", true);
 
+		} else {
+			p.setFirstName(firstName);
 		}
 
 		String lastName = request.getParameter("last-name");
@@ -67,6 +75,8 @@ public class AddPassenger extends HttpServlet {
 			request.setAttribute("error", true);
 			request.setAttribute("lastName_error", true);
 
+		} else {
+			p.setLastName(lastName);
 		}
 
 		String dob_raw = request.getParameter("dob");
@@ -92,6 +102,7 @@ public class AddPassenger extends HttpServlet {
 
 			Date dob = cal.getTime();
 			System.out.println(dob);
+			p.setDob(dob);
 		} else {
 			System.out.println("Invalid date of birth");
 			request.setAttribute("errors", true);
@@ -100,12 +111,20 @@ public class AddPassenger extends HttpServlet {
 
 		String gender = request.getParameter("gender");
 		System.out.println("Gender: " + gender);
+		p.setGender(Gender.valueOf(gender));
 
 		if ((Boolean) request.getAttribute("errors")) {
 
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passenger.jsp");
 
 			view.forward(request, response);
+		} else {
+
+			ArrayList<Passenger> pList = new ArrayList<Passenger>();
+
+			pList.add(p);
+
+			response.sendRedirect("");
 		}
 	}
 
